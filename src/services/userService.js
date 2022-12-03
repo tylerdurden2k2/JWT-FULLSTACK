@@ -37,50 +37,27 @@ const getUserList = async () => {
 };
 
 const deleteUser = async (id) => {
-    const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "jwt",
+    await db.User.destroy({
+        where: { id: id },
     });
-    try {
-        await connection.execute("DELETE FROM USER WHERE id=?", [id]);
-    } catch (error) {
-        console.log("catch error: ", error);
-    }
 };
 
 const getUserById = async (id) => {
-    const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "jwt",
+    let user = await db.User.findOne({
+        where: { id: id },
     });
-    try {
-        const [rows, fields] = await connection.execute(
-            "SELECT * FROM USER WHERE id=?",
-            [id]
-        );
-        return rows;
-    } catch (error) {
-        console.log("catch error: ", error);
+    if (!user) {
+        return {};
     }
+    return user.get({ plain: true });
 };
 
 const editUser = async (data) => {
     let { id, email, username } = data;
-    const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "jwt",
-    });
-    try {
-        await connection.execute(
-            "UPDATE USER SET email=?, username=? WHERE id=?",
-            [email, username, id]
-        );
-    } catch (error) {
-        console.log("catch error: ", error);
-    }
+    await db.User.update(
+        { email: email, username: username },
+        { where: { id: id } }
+    );
 };
 
 export default {

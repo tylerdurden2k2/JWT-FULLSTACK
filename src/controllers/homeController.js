@@ -17,11 +17,7 @@ const deleteUser = async (req, res) => {
 };
 
 const getEditUserPage = async (req, res) => {
-    let dataUser = {};
-    let result = await userService.getUserById(req.params.id);
-    if (result && result.length > 0) {
-        dataUser = result[0];
-    }
+    let dataUser = await userService.getUserById(req.params.id);
     return res.render("edit-user-page.ejs", { dataUser });
 };
 
