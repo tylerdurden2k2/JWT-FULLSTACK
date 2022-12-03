@@ -16,44 +16,75 @@
     </head>
     <body>
         <div class="user-page-container">
-            <div class="container p-3">
-                <h1 style="text-align: center">Create user's account</h1>
-                <div class="row">
-                    <div class="col-sm-6 mb-3">
-                        <label for="email" class="form-label"
-                            >Email address</label
-                        >
-                        <input type="email" class="form-control" id="email" />
+            <form method="POST" action="/users/create-user">
+                <div class="container p-3">
+                    <h1 style="text-align: center">Create user's account</h1>
+                    <div class="row was-validated">
+                        <div class="col-sm-6 mb-3">
+                            <label for="email" class="form-label"
+                                >Email address</label
+                            >
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                required
+                                name="email"
+                            />
+                            <div class="valid-feedback">Your right.</div>
+                            <div class="invalid-feedback">
+                                Please fill out your email.
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="password" class="form-label"
+                                >Password</label
+                            >
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                required
+                                name="password"
+                            />
+                            <div class="valid-feedback">Your right.</div>
+                            <div class="invalid-feedback">
+                                Please fill out your password.
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="username" class="form-label"
+                                >User Name</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="username"
+                                required
+                                name="username"
+                            />
+                            <div class="valid-feedback">Your right.</div>
+                            <div class="invalid-feedback">
+                                Please fill out your username.
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label for="description" class="form-label"
+                                >Description</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="description"
+                                disabled
+                            />
+                        </div>
                     </div>
-                    <div class="col-sm-6 mb-3">
-                        <label for="password" class="form-label"
-                            >Password</label
-                        >
-                        <input
-                            type="password"
-                            class="form-control"
-                            id="password"
-                        />
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <label for="username" class="form-label"
-                            >User Name</label
-                        >
-                        <input type="text" class="form-control" id="username" />
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <label for="description" class="form-label"
-                            >Description</label
-                        >
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="description"
-                        />
-                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+            </form>
         </div>
     </body>
 </html>
