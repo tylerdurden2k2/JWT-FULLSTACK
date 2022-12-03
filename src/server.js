@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import viewEngineConfig from "./configs/viewEngineConfig";
+import viewEngineConfig from "./config/viewEngineConfig";
 import initWebRoutes from "./routes/web";
 import bodyParser from "body-parser";
 

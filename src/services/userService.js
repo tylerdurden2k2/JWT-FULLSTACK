@@ -1,16 +1,7 @@
 import mysql from "mysql2/promise";
 import bcrypt from "bcryptjs";
 
-// create the connection
-
-// query database
 const salt = bcrypt.genSaltSync(10);
-
-// const connection = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     database: "jwt",
-// });
 
 const hashUserPassword = (password) => {
     return bcrypt.hashSync(password, salt);
@@ -19,7 +10,6 @@ const hashUserPassword = (password) => {
 const createNewUser = async (data) => {
     let { email, password, username } = data;
     let hashPassword = hashUserPassword(password);
-    // let checkPassword = bcrypt.compareSync("123", hashUserPassword);
     const connection = await mysql.createConnection({
         host: "localhost",
         user: "root",
