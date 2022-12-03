@@ -5,16 +5,20 @@ const getHomePage = (req, res) => {
 };
 const getUserPage = async (req, res) => {
     const listUsers = await userService.getUserList();
-    console.log("check listUsers: ", listUsers);
     return res.render("user.ejs", { listUsers });
 };
-const createNewUser = (req, res) => {
-    // userService.createNewUser(req.body);
-
-    return res.send("createNewUser");
+const createNewUser = async (req, res) => {
+    await userService.createNewUser(req.body);
+    return res.redirect("/user");
 };
+const deleteUser = async (req, res) => {
+    await userService.deleteUser(req.params.id);
+    return res.redirect("/user");
+};
+
 export default {
     getHomePage,
     getUserPage,
     createNewUser,
+    deleteUser,
 };

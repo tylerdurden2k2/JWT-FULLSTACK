@@ -16,22 +16,23 @@ const hashUserPassword = (password) => {
     return bcrypt.hashSync(password, salt);
 };
 
-const createNewUser = (data) => {
+const createNewUser = async (data) => {
     let { email, password, username } = data;
     let hashPassword = hashUserPassword(password);
     // let checkPassword = bcrypt.compareSync("123", hashUserPassword);
-
-    connection.query(
-        "INSERT INTO USER (email, password, username) VALUES ( ?, ?, ?)",
-        [email, hashPassword, username],
-        function (err, results) {
-            if (err) {
-                console.log(">>ERROR: ", err);
-            } else {
-                console.log(">>check results: ", results);
-            }
-        }
-    );
+    const connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "jwt",
+    });
+    try {
+        await connection.execute(
+            "INSERT INTO USER (email, password, username) VALUES ( ?, ?, ?)",
+            [email, hashPassword, username]
+        );
+    } catch (e) {
+        console.log(">>check ERROR: ", e);
+    }
 };
 
 const getUserList = async () => {
@@ -46,19 +47,23 @@ const getUserList = async () => {
     } catch (e) {
         console.log("catch error: ", error);
     }
+};
 
-    // await connection.query("SELECT * FROM USER", function (err, results) {
-    //     if (err) {
-    //         console.log(">>ERROR: ", err);
-    //         return listUsers;
-    //     } else {
-    //         console.log(">>check results: ", results);
-    //         return results;
-    //     }
-    // });
+const deleteUser = async (id) => {
+    const connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "jwt",
+    });
+    try {
+        await connection.execute("DELETE FROM USER WHERE id=?", [id]);
+    } catch (error) {
+        console.log("catch error: ", error);
+    }
 };
 
 export default {
     createNewUser,
     getUserList,
+    deleteUser,
 };

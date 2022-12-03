@@ -19,7 +19,7 @@
             <form method="POST" action="/users/create-user">
                 <div class="container p-3">
                     <h1 style="text-align: center">Create user's account</h1>
-                    <div class="row was-validated">
+                    <div class="row">
                         <div class="col-sm-6 mb-3">
                             <label for="email" class="form-label"
                                 >Email address</label
@@ -31,10 +31,6 @@
                                 required
                                 name="email"
                             />
-                            <div class="valid-feedback">Your right.</div>
-                            <div class="invalid-feedback">
-                                Please fill out your email.
-                            </div>
                         </div>
                         <div class="col-sm-6 mb-3">
                             <label for="password" class="form-label"
@@ -47,10 +43,6 @@
                                 required
                                 name="password"
                             />
-                            <div class="valid-feedback">Your right.</div>
-                            <div class="invalid-feedback">
-                                Please fill out your password.
-                            </div>
                         </div>
                         <div class="col-sm-6 mb-3">
                             <label for="username" class="form-label"
@@ -63,10 +55,6 @@
                                 required
                                 name="username"
                             />
-                            <div class="valid-feedback">Your right.</div>
-                            <div class="invalid-feedback">
-                                Please fill out your username.
-                            </div>
                         </div>
                         <div class="col-sm-6 mb-3">
                             <label for="description" class="form-label"
@@ -105,17 +93,23 @@
                                 <td><%= item.username %></td>
                                 <td>
                                     <button
-                                        type="button"
+                                        type="submit"
                                         class="btn btn-primary"
                                     >
                                         Edit
                                     </button>
-                                    <button
-                                        type="button"
-                                        class="btn btn-danger"
+                                    <form
+                                        style="display: inline-block"
+                                        action="/users/delete-user/<%= item.id %>"
+                                        method="POST"
                                     >
-                                        Delete
-                                    </button>
+                                        <button
+                                            type="submit"
+                                            class="btn btn-danger"
+                                        >
+                                            Delete
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             <% }) %>
