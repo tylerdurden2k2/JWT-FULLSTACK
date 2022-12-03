@@ -17,7 +17,7 @@ const createNewUser = async (data) => {
     });
     try {
         await connection.execute(
-            "INSERT INTO USER (email, password, username) VALUES ( ?, ?, ?)",
+            "INSERT INTO USERS (email, password, username) VALUES ( ?, ?, ?)",
             [email, hashPassword, username]
         );
     } catch (e) {
@@ -32,7 +32,7 @@ const getUserList = async () => {
         database: "jwt",
     });
     try {
-        const [rows, fields] = await connection.execute("SELECT * FROM USER");
+        const [rows, fields] = await connection.execute("SELECT * FROM USERS");
         return rows;
     } catch (e) {
         console.log("catch error: ", error);
@@ -46,7 +46,7 @@ const deleteUser = async (id) => {
         database: "jwt",
     });
     try {
-        await connection.execute("DELETE FROM USER WHERE id=?", [id]);
+        await connection.execute("DELETE FROM USERS WHERE id=?", [id]);
     } catch (error) {
         console.log("catch error: ", error);
     }
@@ -60,7 +60,7 @@ const getUserById = async (id) => {
     });
     try {
         const [rows, fields] = await connection.execute(
-            "SELECT * FROM USER WHERE id=?",
+            "SELECT * FROM USERS WHERE id=?",
             [id]
         );
         return rows;
@@ -78,7 +78,7 @@ const editUser = async (data) => {
     });
     try {
         await connection.execute(
-            "UPDATE USER SET email=?, username=? WHERE id=?",
+            "UPDATE USERS SET email=?, username=? WHERE id=?",
             [email, username, id]
         );
     } catch (error) {
