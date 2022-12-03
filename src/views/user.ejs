@@ -92,12 +92,13 @@
                                 <td><%= item.email %></td>
                                 <td><%= item.username %></td>
                                 <td>
-                                    <button
-                                        type="submit"
+                                    <a
+                                        style="display: inline-block"
+                                        href="/users/update-user-page/<%= item.id %>"
                                         class="btn btn-primary"
                                     >
                                         Edit
-                                    </button>
+                                    </a>
                                     <form
                                         style="display: inline-block"
                                         action="/users/delete-user/<%= item.id %>"

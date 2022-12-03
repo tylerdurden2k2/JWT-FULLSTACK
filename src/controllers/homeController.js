@@ -16,9 +16,24 @@ const deleteUser = async (req, res) => {
     return res.redirect("/user");
 };
 
+const getEditUserPage = async (req, res) => {
+    let dataUser = {};
+    let result = await userService.getUserById(req.params.id);
+    if (result && result.length > 0) {
+        dataUser = result[0];
+    }
+    return res.render("edit-user-page.ejs", { dataUser });
+};
+
+const editUser = async (req, res) => {
+    await userService.editUser(req.body);
+    return res.redirect("/user");
+};
 export default {
     getHomePage,
     getUserPage,
     createNewUser,
     deleteUser,
+    getEditUserPage,
+    editUser,
 };

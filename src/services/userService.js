@@ -62,8 +62,44 @@ const deleteUser = async (id) => {
     }
 };
 
+const getUserById = async (id) => {
+    const connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "jwt",
+    });
+    try {
+        const [rows, fields] = await connection.execute(
+            "SELECT * FROM USER WHERE id=?",
+            [id]
+        );
+        return rows;
+    } catch (error) {
+        console.log("catch error: ", error);
+    }
+};
+
+const editUser = async (data) => {
+    let { id, email, username } = data;
+    const connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        database: "jwt",
+    });
+    try {
+        await connection.execute(
+            "UPDATE USER SET email=?, username=? WHERE id=?",
+            [email, username, id]
+        );
+    } catch (error) {
+        console.log("catch error: ", error);
+    }
+};
+
 export default {
     createNewUser,
     getUserList,
     deleteUser,
+    getUserById,
+    editUser,
 };
