@@ -23,17 +23,8 @@ const createNewUser = async (data) => {
 };
 
 const getUserList = async () => {
-    const connection = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        database: "jwt",
-    });
-    try {
-        const [rows, fields] = await connection.execute("SELECT * FROM USER");
-        return rows;
-    } catch (e) {
-        console.log("catch error: ", error);
-    }
+    let data = await db.User.findAll();
+    return data;
 };
 
 const deleteUser = async (id) => {
