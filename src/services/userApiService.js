@@ -76,7 +76,32 @@ const getUserOfPage = (page, limit) => {
     });
 };
 
+const deleteUserById = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: { id: id },
+            });
+            if (user) {
+                await user.destroy();
+                resolve({
+                    EC: 0,
+                    EM: "Delete succeed!",
+                });
+            } else {
+                resolve({
+                    EC: 2,
+                    EM: "This user isn't exist!",
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 export default {
     getAllUser,
     getUserOfPage,
+    deleteUserById,
 };

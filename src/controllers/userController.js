@@ -21,6 +21,20 @@ const getAllUser = async (req, res) => {
     }
 };
 
+const deleteUserById = async (req, res) => {
+    try {
+        let data = await userApiService.deleteUserById(req.params.id);
+        return res.status(200).json(data);
+    } catch (e) {
+        console.log("error: ", e);
+        return res.status(500).json({
+            EC: -1,
+            EM: "Error form server!",
+        });
+    }
+};
+
 export default {
     getAllUser,
+    deleteUserById,
 };
