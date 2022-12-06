@@ -34,7 +34,21 @@ const deleteUserById = async (req, res) => {
     }
 };
 
+const createNewUser = async (req, res) => {
+    try {
+        let data = await userApiService.createNewUser(req.body);
+        return res.status(200).json(data);
+    } catch (e) {
+        console.log("error: ", e);
+        return res.status(500).json({
+            EC: -1,
+            EM: "Error from server...",
+        });
+    }
+};
+
 export default {
     getAllUser,
     deleteUserById,
+    createNewUser,
 };

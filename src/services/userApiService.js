@@ -1,4 +1,12 @@
 import db from "../models";
+import { Op } from "sequelize";
+import bcrypt from "bcryptjs";
+
+const salt = bcrypt.genSaltSync(10);
+
+const hashUserPassword = (password) => {
+    return bcrypt.hashSync(password, salt);
+};
 
 const getAllUser = () => {
     return new Promise(async (resolve, reject) => {
@@ -100,8 +108,43 @@ const deleteUserById = (id) => {
     });
 };
 
+const createNewUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const [user, created] = await db.User.findOrCreate({
+                where: {
+                    [Op.or]: [{ email: data.email }, { phone: data.phone }],
+                },
+                defaults: {
+                    email: data.email,
+                    phone: data.phone,
+                    username: data.username,
+                    sex: data.sex,
+                    address: data.address,
+                    groupId: data.groupId,
+                    password: hashUserPassword(data.password),
+                },
+            });
+            if (created) {
+                resolve({
+                    EC: 0,
+                    EM: "Create new user success!",
+                });
+            } else {
+                resolve({
+                    EC: 2,
+                    EM: "Phone or Email already exist in database!",
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 export default {
     getAllUser,
     getUserOfPage,
     deleteUserById,
+    createNewUser,
 };
