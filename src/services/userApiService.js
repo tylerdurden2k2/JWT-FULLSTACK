@@ -66,6 +66,7 @@ const getUserOfPage = (page, limit) => {
                 nest: true,
                 offset: offset,
                 limit: limit,
+                order: [["id", "DESC"]],
             });
             console.log("count: ", count, "rows: ", rows);
             let data = {
@@ -142,9 +143,32 @@ const createNewUser = (data) => {
     });
 };
 
+const updateUser = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await db.User.update(
+                {
+                    username: data.username,
+                    sex: data.sex,
+                    address: data.address,
+                    groupId: data.groupId,
+                },
+                { where: { email: data.email } }
+            );
+            resolve({
+                EC: 0,
+                EM: "Update succeed!",
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 export default {
     getAllUser,
     getUserOfPage,
     deleteUserById,
     createNewUser,
+    updateUser,
 };

@@ -47,8 +47,23 @@ const createNewUser = async (req, res) => {
     }
 };
 
+const updateUser = async (req, res) => {
+    try {
+        console.log("check req body: ", req.body);
+        let data = await userApiService.updateUser(req.body);
+        return res.status(200).json(data);
+    } catch (e) {
+        console.log("error: ", e);
+        return res.status(500).json({
+            EC: -1,
+            EM: "Error from server...",
+        });
+    }
+};
+
 export default {
     getAllUser,
     deleteUserById,
     createNewUser,
+    updateUser,
 };
