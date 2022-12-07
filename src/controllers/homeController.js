@@ -5,6 +5,7 @@ const getHomePage = (req, res) => {
 };
 const getUserPage = async (req, res) => {
     const listUsers = await userService.getUserList();
+    console.log("check cookie: ", req.cookies);
     return res.render("user.ejs", { listUsers });
 };
 const createNewUser = async (req, res) => {

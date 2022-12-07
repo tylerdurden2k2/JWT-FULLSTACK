@@ -15,6 +15,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         let data = await loginRegisterService.LoginUser(req.body);
+        res.cookie("jwt", data.DT.access_token, { httpOnly: true });
         return res.status(200).json(data);
     } catch (e) {
         return res.status(500).json({

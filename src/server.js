@@ -6,6 +6,7 @@ import initApiRoutes from "./routes/api";
 import bodyParser from "body-parser";
 import connectionDB from "./config/connectDB";
 import configCORS from "./config/configCORS";
+import cookieParser from "cookie-parser";
 dotenv.config();
 const PORT = process.env.PORT || 8080;
 
@@ -17,12 +18,17 @@ viewEngineConfig(app);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 //test connect db
 connectionDB();
 
 initWebRoutes(app);
 initApiRoutes(app);
+
+app.use((req, res) => {
+    return res.render("404.ejs");
+});
 
 app.listen(PORT, () => {
     console.log(">>> Server is running on localhost: ", PORT);
