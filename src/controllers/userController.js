@@ -2,7 +2,6 @@ import userApiService from "../services/userApiService";
 
 const getAllUser = async (req, res) => {
     try {
-        console.log("check query: ", req.query);
         let { page, limit } = req.query;
         let data = {};
         if (!page || !limit) {
@@ -49,7 +48,6 @@ const createNewUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        console.log("check req body: ", req.body);
         let data = await userApiService.updateUser(req.body);
         return res.status(200).json(data);
     } catch (e) {
@@ -61,9 +59,23 @@ const updateUser = async (req, res) => {
     }
 };
 
+const getUserAccount = (req, res) => {
+    return res.status(200).json({
+        EC: 0,
+        EM: "OK",
+        DT: {
+            access_token: req.token,
+            roles: req.user.roles,
+            email: req.user.email,
+            username: req.user.username,
+        },
+    });
+};
+
 export default {
     getAllUser,
     deleteUserById,
     createNewUser,
     updateUser,
+    getUserAccount,
 };

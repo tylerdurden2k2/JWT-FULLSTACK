@@ -68,7 +68,6 @@ const getUserOfPage = (page, limit) => {
                 limit: limit,
                 order: [["id", "DESC"]],
             });
-            console.log("count: ", count, "rows: ", rows);
             let data = {
                 listUser: rows,
                 totalPages: Math.ceil(count / limit),

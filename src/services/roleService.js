@@ -14,7 +14,6 @@ const getRoleByGroupId = async (user) => {
             },
         ],
     });
-    console.log("check roles: ", roles);
     return roles;
 };
 

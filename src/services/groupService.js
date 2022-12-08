@@ -7,7 +7,6 @@ const getAllPosition = () => {
                 order: [["name", "ASC"]],
                 raw: true,
             });
-            console.log("check list: ", listPosition);
             resolve({
                 EC: 0,
                 EM: "OK",

@@ -99,7 +99,7 @@ const LoginUser = (data) => {
                     let payload = {
                         email: user.email,
                         roles,
-                        expiresIn: "1h",
+                        username: user.username,
                     };
                     resolve({
                         EC: 0,
@@ -107,6 +107,8 @@ const LoginUser = (data) => {
                         DT: {
                             access_token: jwtAction.signJWT(payload),
                             roles,
+                            email: user.email,
+                            username: user.username,
                         },
                     });
                 } else {
