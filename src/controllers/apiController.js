@@ -31,7 +31,26 @@ const loginUser = async (req, res) => {
     }
 };
 
+const logoutUser = async (req, res) => {
+    try {
+        res.clearCookie("jwt");
+        return res.status(200).json({
+            EC: 0,
+            EM: "Logout succeed!",
+            DT: "",
+        });
+    } catch (e) {
+        console.log("error: ", e);
+        return res.status(500).json({
+            EM: "Error from server!",
+            EC: -1,
+            DT: "",
+        });
+    }
+};
+
 export default {
     registerUser,
     loginUser,
+    logoutUser,
 };

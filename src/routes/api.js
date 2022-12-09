@@ -9,6 +9,7 @@ const initApiRoutes = (app) => {
     router.all("*", jwtAction.checkUserJWT, jwtAction.checkPermissionUser);
     router.post("/register-user", apiController.registerUser);
     router.post("/login-user", apiController.loginUser);
+    router.post("/logout-user", apiController.logoutUser);
 
     router.get(
         "/users/read",

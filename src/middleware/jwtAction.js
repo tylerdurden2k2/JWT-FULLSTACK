@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 dotenv.config();
 
-const noCheckRoute = ["/", "/register-user", "/login-user"];
+const noCheckRoute = ["/", "/register-user", "/login-user", "/logout-user"];
 
 const signJWT = (payload) => {
     let secret = process.env.SECRET;
