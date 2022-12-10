@@ -3,6 +3,7 @@ import apiController from "../controllers/apiController";
 import userController from "../controllers/userController";
 import groupController from "../controllers/groupController";
 import jwtAction from "../middleware/jwtAction";
+import roleController from "../controllers/roleController";
 
 const router = express.Router();
 const initApiRoutes = (app) => {
@@ -21,6 +22,9 @@ const initApiRoutes = (app) => {
     router.post("/users/create-new-user", userController.createNewUser);
     router.put("/users/update-user", userController.updateUser);
     router.get("/account", userController.getUserAccount);
+
+    router.post("/role/create", roleController.createRole);
+    router.get("/role/read", roleController.getAllRole);
 
     router.get("/group/read", groupController.getAllPosition);
 

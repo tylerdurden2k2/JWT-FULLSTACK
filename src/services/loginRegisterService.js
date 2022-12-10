@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import db from "../models";
 import { Op } from "sequelize";
-import getRoleByGroupId from "./roleService";
+import roleService from "./roleService";
 import jwtAction from "../middleware/jwtAction";
 const salt = bcrypt.genSaltSync(10);
 
@@ -67,7 +67,6 @@ const registerNewUser = (data) => {
                         username: username,
                         groupId: 4,
                     });
-                    console.log("success!");
                     resolve({
                         EM: "OK!",
                         EC: 0,
@@ -95,7 +94,7 @@ const LoginUser = (data) => {
             if (user) {
                 let check = comparePassword(password, user.password);
                 if (check) {
-                    let roles = await getRoleByGroupId(user);
+                    let roles = await roleService.getRoleByGroupId(user);
                     let payload = {
                         email: user.email,
                         roles,
