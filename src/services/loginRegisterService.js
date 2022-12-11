@@ -94,7 +94,9 @@ const LoginUser = (data) => {
             if (user) {
                 let check = comparePassword(password, user.password);
                 if (check) {
-                    let roles = await roleService.getRoleByGroupId(user);
+                    let roles = await roleService.getRoleByGroupId(
+                        user.groupId
+                    );
                     let payload = {
                         email: user.email,
                         roles,

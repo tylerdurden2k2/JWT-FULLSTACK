@@ -2,9 +2,9 @@ import db from "../models";
 import dotenv from "dotenv";
 dotenv.config();
 
-const getRoleByGroupId = async (user) => {
+const getRoleByGroupId = async (groupId) => {
     let roles = await db.Group.findOne({
-        where: { id: user.groupId },
+        where: { id: groupId },
         attributes: ["id", "name", "description"],
         include: [
             {
@@ -74,4 +74,75 @@ const getAllRole = (page, limit) => {
         }
     });
 };
-export default { getRoleByGroupId, createRole, getAllRole };
+
+const deleteRole = (id) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const role = await db.Role.findOne({
+                where: { id: id },
+            });
+            if (role) {
+                await role.destroy();
+                resolve({
+                    EC: 0,
+                    EM: "Delete succeed!",
+                    DT: "",
+                });
+            } else {
+                resolve({
+                    EC: 2,
+                    EM: "This role doesn't exist!",
+                    DT: "",
+                });
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+const getAllRoleOnePage = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const allRole = await db.Role.findAll({
+                attributes: ["id", "url", "description"],
+                raw: true,
+                order: [["id", "DESC"]],
+            });
+            resolve({
+                EC: 0,
+                EM: "OK",
+                DT: allRole,
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+const assignRoleForGroup = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await db.Group_Role.destroy({
+                where: { groupId: data[0].groupId },
+            });
+            await db.Group_Role.bulkCreate(data);
+            resolve({
+                EC: 0,
+                EM: "OK",
+                DT: "",
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+export default {
+    getRoleByGroupId,
+    createRole,
+    getAllRole,
+    deleteRole,
+    getAllRoleOnePage,
+    assignRoleForGroup,
+};

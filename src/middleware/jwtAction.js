@@ -73,7 +73,9 @@ const checkPermissionUser = (req, res, next) => {
                 EM: "You don't have permission to access this resource",
             });
         }
-        let check = arrRoles.some((item) => item.url === currentUrl);
+        let check = arrRoles.some(
+            (item) => item.url === currentUrl || currentUrl.includes(item.url)
+        );
         if (check) {
             next();
         } else {
