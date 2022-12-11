@@ -58,7 +58,6 @@ const getAllRoleOnePage = async (req, res) => {
 
 const getRoleByGroupId = async (req, res) => {
     try {
-        console.log("check params: ", req.params);
         let data = await roleService.getRoleByGroupId(req.params.groupId);
         return res.status(200).json({
             DT: data,
